@@ -25,6 +25,7 @@
   <select id="divisions">
     <option disabled>Подразделение</option>
   </select>
+  <button id="divisionOk">Ok</button>
 
   <table id="pList">
     <tr><td>Имя</td><tr>
@@ -39,7 +40,7 @@
   <script type="text/javascript">
       $( document ).ready(init);
 
-      $('#divisions').on('change', function (e) {
+      $('#divisionsOk').on('change', function (e) {
           var optionSelected = $("option:selected", this);
           var valueSelected = this.value;
           fetchPList(valueSelected);
