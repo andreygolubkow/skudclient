@@ -42,6 +42,7 @@
       function init() {
           $.getJSON('http://localhost:4444/api/division/', function(data) {
               for (var i=0;i<data.length;i++){
+                  $('#divisions').clear();
                   $('#divisions').append('<option value="' + data[i].ID + '">' + data[i].Name + '</option>');
               }
           });
@@ -51,15 +52,12 @@
               var valueSelected = this.value;
               fetchPList(valueSelected);
           });
-
-          $('#divisions').on('change', function() {
-              alert( this.value );
-          });
       }
 
       function fetchPList(divisionId) {
           $.getJSON(`http://localhost:4444/api/plist?divisionId=${divisionId}`, function(data) {
               for (var i=0;i<data.length;i++){
+                  $('#pList').clear();
                   $('#pList').append('<tr><td>' + data[i].Name+ '</td><tr>');
               }
           });
