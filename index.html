@@ -49,7 +49,7 @@
       function init() {
           $.getJSON('http://localhost:4444/api/division/', function(data) {
               for (var i=0;i<data.length;i++){
-                  $('#divisions').append('<option value="' + data.ID + '">' + data.Name + '</option>');
+                  $('#divisions').append('<option value="' + data[i].ID + '">' + data[i].Name + '</option>');
               }
           });
       }
