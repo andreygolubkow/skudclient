@@ -25,7 +25,6 @@
   <select id="divisions">
     <option disabled>Подразделение</option>
   </select>
-  <a href="#" id="divisionsOk">Загрузить</a>
 
   <table id="pList">
     <tr><td>Имя</td><tr>
@@ -40,18 +39,21 @@
   <script type="text/javascript">
       $( document ).ready(init);
 
-      $('#divisionsOk').on('change', function (e) {
-          var optionSelected = $("option:selected", this);
-          var valueSelected = this.value;
-          fetchPList(valueSelected);
-      });
-
-
       function init() {
           $.getJSON('http://localhost:4444/api/division/', function(data) {
               for (var i=0;i<data.length;i++){
                   $('#divisions').append('<option value="' + data[i].ID + '">' + data[i].Name + '</option>');
               }
+          });
+
+          $('#divisions').on('change', function (e) {
+              var optionSelected = $("option:selected", this);
+              var valueSelected = this.value;
+              fetchPList(valueSelected);
+          });
+
+          $('#divisions').on('change', function() {
+              alert( this.value );
           });
       }
 
