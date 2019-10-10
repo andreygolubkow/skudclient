@@ -22,20 +22,49 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
+  <select id="divisions">
+    <option disabled>Подразделение</option>
+  </select>
+
+  <table id="pList">
+    <tr><td>Имя</td><tr>
+  </table>
+
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
+  <script type="text/javascript">
+      $( document ).ready(init);
+
+      $('#divisions').on('change', function (e) {
+          var optionSelected = $("option:selected", this);
+          var valueSelected = this.value;
+          fetchPList(valueSelected);
+      });
+
+
+      function init() {
+          $.getJSON('http://localhost:4444/api/division/', function(data) {
+              for (var i=0;i<data.length;i++){
+                  $('#divisions').append('<option value="' + data.ID + '">' + data.Name + '</option>');
+              }
+          });
+      }
+
+      function fetchPList(divisionId) {
+          $.getJSON(`http://localhost:4444/api/plist?divisionId=${divisionId}`, function(data) {
+              for (var i=0;i<data.length;i++){
+                  $('#pList').append('<tr><td>' + data[i].Name+ '</td><tr>');
+              }
+          });
+      }
   </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
+
+
+
 </body>
 
 </html>
